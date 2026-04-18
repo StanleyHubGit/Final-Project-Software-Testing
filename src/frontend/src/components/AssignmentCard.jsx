@@ -41,7 +41,7 @@ export default function AssignmentCard({ task, onUpdate }) {
         }}
       >
         {task.status}
-      </span>
+      </span>   
 
       {task.status !== "submitted" && (
         <button onClick={handleSubmit}>Submit</button>
