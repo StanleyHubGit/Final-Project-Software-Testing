@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from .auth_service import AuthService
 
-# 🔥 HARUS ADA INI DULU
 auth_bp = Blueprint("auth", __name__)
 
 service = AuthService()

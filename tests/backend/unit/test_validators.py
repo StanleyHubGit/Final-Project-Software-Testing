@@ -7,7 +7,7 @@ from src.backend.app.validators import (
 )
 
 
-# ===== TITLE =====
+# ===== TITLE ======
 def test_valid_title():
     assert validate_title("Tugas 1") == "Tugas 1"
 
