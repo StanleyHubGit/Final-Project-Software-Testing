@@ -9,14 +9,17 @@ load_dotenv()
 def create_app(test_config=None):
     app = Flask(__name__)
 
-    CORS(app)  # 🔥 WAJIB (biar React bisa akses backend)
+    CORS(app)
 
     # Init DB
     from .models import init_db
     init_db()
 
     # Config
-    app.config["SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "dev-secret")
+    app.config["SECRET_KEY"] = os.getenv(
+    "JWT_SECRET_KEY",
+    "super-secret-key-minimal-32-characters!!"
+    )
 
     if test_config:
         app.config.update(test_config)

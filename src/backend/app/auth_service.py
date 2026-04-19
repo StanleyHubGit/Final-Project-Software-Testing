@@ -1,9 +1,13 @@
 import jwt
 import bcrypt
+import os
 from datetime import datetime, timedelta
 from .models import get_connection
 
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = os.getenv(
+    "JWT_SECRET_KEY",
+    "super-secret-key-minimal-32-characters!!"
+)
 
 
 class AuthService:
@@ -20,7 +24,7 @@ class AuthService:
                 (email, hashed)
             )
             conn.commit()
-        except:
+        except Exception:
             raise ValueError("User already exists")
 
         conn.close()
@@ -43,6 +47,7 @@ class AuthService:
         if not bcrypt.checkpw(password.encode(), user["password"].encode()):
             raise ValueError("Invalid credentials")
 
+        # 🔥 Generate JWT dengan SECRET_KEY dari env
         token = jwt.encode({
             "user_id": user["id"],
             "exp": datetime.utcnow() + timedelta(hours=2)

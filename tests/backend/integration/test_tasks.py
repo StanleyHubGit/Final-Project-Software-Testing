@@ -40,5 +40,35 @@ def test_get_tasks_after_create(client):
 
 def test_get_tasks_invalid_user(client):
     response = client.get("/tasks/?user_id=abc")
+    assert response.status_code == 400
+
+
+# 🔥 TAMBAHAN (WAJIB UNTUK 100%)
+def test_update_status_endpoint(client):
+    res = client.post("/tasks/", json={
+        "title": "Test",
+        "user_id": 1
+    })
+
+    task_id = res.json["id"]
+
+    response = client.put(f"/tasks/{task_id}/status", json={
+        "status": "submitted"
+    })
+
+    assert response.status_code == 200
+
+
+def test_update_status_invalid(client):
+    res = client.post("/tasks/", json={
+        "title": "Test",
+        "user_id": 1
+    })
+
+    task_id = res.json["id"]
+
+    response = client.put(f"/tasks/{task_id}/status", json={
+        "status": "invalid_status"
+    })
 
     assert response.status_code == 400
